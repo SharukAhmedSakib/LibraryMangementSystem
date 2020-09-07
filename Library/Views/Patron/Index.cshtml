@@ -3,33 +3,87 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h3>Patron Index</h3>
-<div id="patronIndex">
-    <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp customTable" id="patronIndexTable">
-        <thead>
-            <tr>
-                <th>Profile Link</th>
-                <th>Last Name</th>
-                <th>First Name</th>
-                <th>Library Card Id</th>
-                <th>Overdue Fees</th>
-                <th>Home Library</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var patron in Model.Patrons)
-            {
+<link href="~/css/CustomTable.css" rel="stylesheet" />
+<div class="content-wrapper p-5" style='background:#C5E1A5'>
+    <h3>Patron Index</h3>
+    <div id="patronIndex">
+        <table class="table table-hover table-striped table-bordered table-sm " style='background:#90c653' cellspacing="0" width="100%" id="patronIndexTable">
+            <thead>
                 <tr>
-                    <td id="patronIcon"><a asp-controller="Patron" asp-action="Detail" asp-route-id="@patron.Id"><i class="fa fa-user fa-2x"></i></a></td>
-                    <td>@patron.LastName</td>
-                    <td>@patron.FirstName</td>
-                    <td>@patron.LibraryCardId</td>
-                    <td>@patron.OverdueFees</td>
-                    <td>@patron.HomeLibrary</td>
+                    <th>Profile Link</th>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Library Card Id</th>
+                    <th>Overdue Fees</th>
+                    <th>Home Library</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var patron in Model.Patrons)
+                {
+                    <tr>
+                        <td id="patronIcon"><a asp-controller="Patron" asp-action="Detail" asp-route-id="@patron.Id"><i class="fa fa-user fa-2x"></i></a></td>
+                        <td>@patron.LastName</td>
+                        <td>@patron.FirstName</td>
+                        <td>@patron.LibraryCardId</td>
+                        <td>@patron.OverdueFees</td>
+                        <td>@patron.HomeLibrary</td>
+                        <td id="patronIcon">
+                            <a id="patronEditBtn" asp-controller="Patron" asp-action="RegisterPatron" asp-route-id="@patron.Id"
+                               data-ajax="true"
+                               data-ajax-method="GET"
+                               data-ajax-update="#editPatron"
+                               data-ajax-mode="replace"><i class="fa fa-edit fa-1x btn btn-primary"></i></a>
+                        </td>
+                        <td><a id="deletePatron" onclick="return confirm('Are you sure you want to delete @patron.FirstName @patron.LastName?')" asp-controller="Patron" asp-action="Delete" asp-route-id="@patron.Id"><i class="btn btn-danger far fa-trash-alt fa-1x"></i></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="registration-form" id="editPatron"></div>
+
+
+        @*<div class="modal fade" data-keyboard="false" data-backdrop="static" id="confirmModel" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Delete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+
 </div>
 
+@section scripts{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.21/af-2.3.5/datatables.min.css" />
+    <link href="~/css/RegistrationStyle.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/af-2.3.5/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#patronIndexTable').DataTable();
+        });
+    </script>
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                $("#deletePatron").click(function () {
+                    $("#PopUp").modal("show");
+                });
+                $("#cancel").click(function () {
+                    $("#popUp").modal("hide");
+                });
+            });
+        </script>*@
+}

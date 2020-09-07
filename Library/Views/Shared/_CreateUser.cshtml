@@ -1,0 +1,46 @@
+﻿
+@model Library.ViewModels.Account.RegisterViewModel
+
+<div>
+    <form asp-controller="Account" asp-action="Register" method="post">
+        <label>
+            <p class="label-txt">ENTER YOUR USERNAME</p>
+            <input type="text" class="input" asp-for="UserName">
+            <div class="line-box">
+                <div class="line"></div>
+            </div>
+            <span asp-validation-for="UserName" class="text-danger"></span><br />
+        </label>
+        <label>
+            <p class="label-txt">ENTER YOUR EMAIL</p>
+            <input type="text" class="input" asp-for="Email">
+            <div class="line-box">
+                <div class="line"></div>
+            </div>
+            <span asp-validation-for="Email" class="text-danger"></span><br />
+        </label>
+        <label>
+            <p class="label-txt">ENTER YOUR PASSWORD</p>
+            <input type="password" class="input" asp-for="Password">
+            <div class="line-box">
+                <div class="line"></div>
+            </div>
+            <span asp-validation-for="Password" class="text-danger"></span><br />
+        </label>
+        <label>
+            <p class="label-txt">ENTER YOUR PASSWORD</p>
+            <input type="password" class="input" asp-for="ConfirmPassword">
+            <div class="line-box">
+                <div class="line"></div>
+            </div>
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span><br />
+        </label>
+        <button type="submit">REGISTER</button>
+    </form>
+
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

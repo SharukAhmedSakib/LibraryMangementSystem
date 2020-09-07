@@ -2,35 +2,49 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
-<div id="assets">
-    <h3>Library Catalog</h3>
-    <div id="assetsTable">
-        <table class="table table-condensed" id="catalogIndexTable">
-            <thead>
-                <tr>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>Author / Director</th>
-                    <th>Dewey Call Number</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var asset in Model.Assets)
-                {
-                    <tr class="assetRow">
-                        <td class="">
-                            <a asp-controller="Catalog" asp-action="Detail" asp-route-id="@asset.Id">
-                                <img src="@asset.ImageUrl" class="imageCell h-50 w-50" />
-                            </a>
-                        </td>
-                        <td class="">@asset.Title</td>
-                        <td class="">@asset.AuthorOrDirector</td>
-                        <td class="">@asset.DeweyCallNumber</td>
+<link href="~/css/CustomTable.css" rel="stylesheet" />
+<div class="content-wrapper p-5" style='background:#C5E1A5'>
+    <h1>Index</h1>
+    <div id="assets">
+        <h3>Library Catalog</h3>
+        <div id="assetsTable">
+            <table id="myTable" class="table table-hover table-striped table-bordered table-sm " style='background:#90c653' cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th class="th-sm">Image</th>
+                        <th class="th-sm">Title</th>
+                        <th class="th-sm">Author / Director</th>
+                        <th class="th-sm">Dewey Call Number</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var asset in Model.Assets)
+                    {
+                        <tr class="assetRow">
+                            <td>
+                                <a asp-controller="Catalog" asp-action="Detail" asp-route-id="@asset.Id">
+                                    <img src="@asset.ImageUrl" class="imageCell" />
+                                </a>
+                            </td>
+                            <td class="align-middle">@asset.Title</td>
+                            <td class="align-middle">@asset.AuthorOrDirector</td>
+                            <td class="align-middle">@asset.DeweyCallNumber</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
+
 </div>
+
+@section scripts{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.21/af-2.3.5/datatables.min.css" />
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/af-2.3.5/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

@@ -1,0 +1,51 @@
+﻿@model List<Library.ViewModels.Account.AssignRoleViewModel>
+@{
+    ViewData["Title"] = "AssignRole";
+}
+<link href="~/css/CustomTable.css" rel="stylesheet" />
+
+<div class="content-wrapper p-5" style='background:#C5E1A5'>
+    <h1>Assign Role</h1>
+
+    <table id="myTable" class="table table-hover table-striped table-bordered table-sm " style='background:#90c653' cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th scope="col">UserName</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role Name</th>
+                <th scope="col">Roles</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.UserName</td>
+                    <td>@item.Email</td>
+                    <td>@item.RoleName</td>
+                    <td>
+                        <form asp-controller="AccountManager" asp-action="AssignRole" method="post">
+                            <input type="hidden" name="UserId" asp-for="@item.UserId" />
+                            <select name="RoleName" asp-for="@item.RoleName" asp-items="new SelectList(item.Roles)">
+                                <option>Select</option>
+                            </select>
+                            <input type="submit" value="Assign Role" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+@section scripts{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.21/af-2.3.5/datatables.min.css" />
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/af-2.3.5/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

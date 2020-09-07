@@ -62,10 +62,7 @@
     color: #fff;
 }
 
-.homeLabel {
-    background-color: rgba(0,0,0,0.3);
-    padding: 4px;
-}
+
 
 #catalog {
     background: url('/images/books.jfif') bottom right 15% no-repeat #555;
@@ -201,3 +198,17 @@
     color: #2f6fc7;
     font-weight: bold;
 }
+
+
+body {
+    background: #C5E1A5;
+}
+
+
+.scrollable {
+    height: 100vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    text-align: center;
+}
+

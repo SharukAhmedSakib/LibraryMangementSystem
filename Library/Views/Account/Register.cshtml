@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="content-wrapper" style='background:#C5E1A5'>
+
+    <div id="success">
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Well done!</strong> You are successfully registered <a href="#" class="alert-link">as an user!!</a>.
+        </div>
+    </div>
+    <div id="error">
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+        </div>
+    </div>
+
+    <div class="wrapper fadeInDown registration-form">
+        <div id="formContent">
+
+            @*<form asp-controller="Account" asp-action="Register" method="post">
+                    UserName : <input type="text" asp-for="UserName" /><br />
+                    Email : <input type="email" asp-for="Email" /><br />
+                    Password : <input type="password" asp-for="Password" /><br />
+                    Confirm Password : <input type="password" asp-for="ConfirmPassword" /><br />
+                    <input type="submit" value="Register" />
+                </form>*@
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#user">User</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#patron">Patron</a>
+                </li>
+            </ul>
+
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade active show" id="user">
+                    <partial name="_CreateUser" />
+                </div>
+
+                <div class="tab-pane fade" id="patron">
+                    <partial name="_CreatePatron" />
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <link href="~/css/RegistrationStyle.css" rel="stylesheet" />
+    <script>
+    $(document).ready(function () {
+
+        $('#success').hide();
+        $('#error').hide();
+
+        $('.input').focus(function () {
+            $(this).parent().find(".label-txt").addClass('label-active');
+        });
+
+        $(".input").focusout(function () {
+            if ($(this).val() == '') {
+                $(this).parent().find(".label-txt").removeClass('label-active');
+            };
+        });
+
+        @if (ViewBag.msg=="Success")
+        {
+        @:$('#success').show();
+        };
+
+        @if (ViewBag.msg=="Error")
+        {
+        @:$('#error').show();
+        };
+
+
+    });
+
+    </script>
+}

@@ -6,45 +6,62 @@
     <title>@ViewData["Title"] - Hogwarts School Library</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css" />
+    <!-- Font Awesome -->
+    <link href="~/Theme/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/Theme/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/Style.css" />
 </head>
-<body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <header class="custom-header mdl-layout__header mdl-layout__header--waterfall">
-            <div class="mdl-layout__header-row">
-                <!-- Title -->
-                <span class="mdl-layout-title logo"><a href="/">Hogwarts School Library</a></span>
-                <!-- Add spacer, to align navigation to the right -->
-                <div class="mdl-layout-spacer"></div>
-                <!-- Navigation. We hide it in small screens. -->
-                <nav class="mdl-navigation mdl-layout--large-screen-only">
-                    <a class="mdl-navigation__link" asp-controller="Home" asp-action="Index">Home</a>
-                    <a class="mdl-navigation__link" asp-controller="Catalog" asp-action="Index">Catalog</a>
-                    <a class="mdl-navigation__link" asp-controller="Patron" asp-action="Index">Patrons</a>
-                    <a class="mdl-navigation__link" asp-controller="Branch" asp-action="Index">Branches</a>
-                </nav>
-            </div>
-        </header>
-        <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">LightLib</span>
-            <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" asp-controller="Home" asp-action="Index">Home</a>
-                <a class="mdl-navigation__link" asp-controller="Catalog" asp-action="Index">Catalog</a>
-                <a class="mdl-navigation__link" asp-controller="Patron" asp-action="Index">Patrons</a>
-                <a class="mdl-navigation__link" asp-controller="Branch" asp-action="Index">Branches</a>
-            </nav>
-        </div>
-        <div class="page-content">
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+            <partial name="_Navbar" />
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+
+
+            <partial name="_Sidebar" />
+
+        <div class="accent-green">
+
             @RenderBody()
         </div>
+
+
+        @*<footer class="main-footer">
+            <div class="float-right d-none d-sm-block">
+                <b>Version</b> 3.0.5
+            </div>
+            <strong>Copyright &copy; 2014-2019 <a href="http://google.com">Sharuk Ahmed Sakib</a>.</strong> All rights
+            reserved.
+        </footer>*@
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://use.fontawesome.com/6110b02b27.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+    <script src="~/Theme/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Theme/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Theme/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/Theme/dist/js/demo.js"></script>
+
     @RenderSection("Scripts", required: false)
     @RenderSection("Styles", required: false)
-</body>
+    </body>
 </html>

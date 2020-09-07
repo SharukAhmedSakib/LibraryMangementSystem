@@ -1,0 +1,94 @@
+﻿@model Library.ViewModels.Patrons.PatronRegisterModel
+
+    <div>
+        <form asp-controller="Patron" asp-action="RegisterPatron">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label>
+                    <p class="label-txt">ENTER PATRON'S FIRSTNAME</p>
+                    <input asp-for="FirstName" type="text" class="input">
+                    <div class="line-box">
+                        <div class="line"></div>
+                    </div>
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <p class="label-txt">ENTER PATRON'S LASTNAME</p>
+                    <input asp-for="LastName" type="text" class="input">
+                    <div class="line-box">
+                        <div class="line"></div>
+                    </div>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <p class="label-txt">ENTER PATRON'S ADDRESS</p>
+                    <input asp-for="Address" type="text" class="input">
+                    <div class="line-box">
+                        <div class="line"></div>
+                    </div>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <p class="label-txt">ENTER PATRON'S DATE OF BIRTH</p>
+                    <input asp-for="DateOfBirth" id="datepicker" type="date" max="maxDate" class="input">
+                    <div class="line-box">
+                        <div class="line"></div>
+                    </div>
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <p class="label-txt">ENTER PATRON'S TELEPHONE NUMBER</p>
+                    <input asp-for="TelephoneNumber" class="input">
+                    <div class="line-box">
+                        <div class="line"></div>
+                    </div>
+                    <span asp-validation-for="TelephoneNumber" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <p class="label-txt">ENTER PATRON'S HOME LIBRARY BRANCH</p>
+                    <select class="input" asp-for="HomeLibraryBranchId" asp-items="@(new SelectList(@ViewBag.listOfBranches,"Id", "Name"))">
+                        <option>Select</option>
+                    </select>
+                    <div class="line-box">
+                        <div class="line"></div>
+                    </div>
+                    <span asp-validation-for="HomeLibraryBranchId" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <p class="label-txt">ENTER FEES PAID BY PATRON</p>
+                    <input asp-for="Fees" class="input">
+                    <div class="line-box">
+                        <div class="line"></div>
+                    </div>
+                    <span asp-validation-for="Fees" class="text-danger"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <button type="submit">REGISTER</button>
+            </div>
+        </form>
+    </div>
+
+
+    @section Scripts {
+<script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+</script>
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

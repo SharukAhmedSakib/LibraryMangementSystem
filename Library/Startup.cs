@@ -14,6 +14,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Library.Interfaces;
 using Library.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using AutoMapper;
+using System.Text.Json.Serialization;
 
 namespace Library
 {
@@ -32,11 +36,37 @@ namespace Library
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultTokenProviders();
+
+            var policy = new AuthorizationPolicyBuilder()
+                            .RequireAuthenticatedUser()
+                            .Build();
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddMvc();
+            services.AddMvc(x => x.Filters.Add(new AuthorizeFilter(policy)));
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                //For Cookies to be expired after 30 minutes of inactivity
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                //To set the login Path
+                options.LoginPath = "/Account/Login";
+                //Login and AccessDenied paths are normally set by ASP.NET Core by default
+                //This is for practice
+                options.AccessDeniedPath = "/Account/AccessDenied";
+
+            });
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Default SignIn settings.
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+            });
             services.AddSingleton(Configuration);
             services.AddScoped<ILibraryAsset, LibraryAssetServices>();
             services.AddScoped<ICheckout, CheckoutService>();

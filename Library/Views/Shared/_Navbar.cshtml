@@ -1,0 +1,68 @@
+﻿
+
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a class="nav-link" asp-area="" asp-controller="Branch" asp-action="Index">Branch</a>
+        </li>
+
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <li class="nav-item d-none d-sm-inline-block">
+                <a class="nav-link" asp-area="" asp-controller="AccountManager" asp-action="AssignRole">Assign Roles</a>
+            </li>
+
+            <li class="nav-item d-none d-sm-inline-block">
+                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+            </li>
+        }
+        @if (User.Identity.IsAuthenticated && (User.IsInRole("User") || User.IsInRole("Admin")))
+        {
+            <li class="nav-item d-none d-sm-inline-block">
+                <a class="nav-link" asp-area="" asp-controller="Patron" asp-action="Index">Patron</a>
+            </li>
+        }
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li class="nav-item d-none d-sm-inline-block">
+                <a class="nav-link" asp-area="" asp-controller="Catalog" asp-action="Index">Catalog</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item d-none d-sm-inline-block">
+                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+            </li>
+        }
+        @*@if (User.Identity.IsAuthenticated)
+            {
+                <li class="nav-item d-none d-sm-inline-block">
+                    <span class="align-baseline text-md-right">Welcome Mr./Ms. @User.Identity.Name</span>
+                </li>
+
+            }*@
+    </ul>
+
+    <!-- SEARCH FORM -->
+    <form class="form-inline ml-3">
+        <div class="input-group input-group-sm right">
+            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</nav>
